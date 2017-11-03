@@ -7,17 +7,22 @@ import {HttpClientModule} from "@angular/common/http";
 import {CompanyService} from "./companies/company.service";
 import {RouterModule, Routes} from "@angular/router";
 import { NavbarComponent } from './navbar/navbar.component';
+import {CompanyFormComponent} from "./companies/company-form/company-form.component";
 
 const routes: Routes = [{
   path: 'companies',
   component: CompanyListComponent
+},{
+  path: 'companies/new',
+  component: CompanyFormComponent
 }];
 
 @NgModule({
   declarations: [
     AppComponent,
     CompanyListComponent,
-    NavbarComponent
+    NavbarComponent,
+    CompanyFormComponent
   ],
   imports: [
     BrowserModule,
