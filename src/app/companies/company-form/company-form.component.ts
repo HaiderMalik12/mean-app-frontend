@@ -22,7 +22,6 @@ export class CompanyFormComponent implements OnInit {
   submitForm() {
     console.log(this.companyForm.value);
 
-    debugger;
     let companyParams = {
       name: this.companyForm.get('name').value,
       city: this.companyForm.get('city').value,
