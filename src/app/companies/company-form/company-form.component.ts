@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {CompanyService} from "../company.service";
 
 @Component({
   selector: 'app-company-form',
@@ -7,9 +9,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyFormComponent implements OnInit {
 
-  constructor() { }
+  companyForm: FormGroup;
+
+  constructor(private _fb: FormBuilder,
+              private _companyService: CompanyService) {
+  }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  submitForm() {
+    console.log(this.companyForm.value);
+
+    debugger;
+    let companyParams = {
+      name: this.companyForm.get('name').value,
+      city: this.companyForm.get('city').value,
+      address: this.companyForm.get('address').value,
+    };
+    this.createCompany(companyParams);
+  }
+
+  private createCompany(companyParams) {
+    this._companyService
+      .createCompany(companyParams)
+      .subscribe(company => {
+        console.log(company);
+      }, err => {
+        console.log(err);
+      })
+  }
+
+  private initForm() {
+    this.companyForm = this._fb.group({
+      name: '',
+      city: '',
+      address: ''
+    });
   }
 
 }

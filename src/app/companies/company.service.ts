@@ -12,5 +12,8 @@ export class CompanyService {
   getCompanies():Observable<Company[]>{
     return this._http.get(`${this.API_URL}/companies`);
   }
+  createCompany(companyParams) : Observable<Company>{
+    return this._http.post(`${this.API_URL}/companies`,companyParams);
+  }
 
 }
