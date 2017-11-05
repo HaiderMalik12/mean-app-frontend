@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CompanyService} from "../company.service";
 
 @Component({
@@ -20,14 +20,15 @@ export class CompanyFormComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.companyForm.value);
 
-    let companyParams = {
-      name: this.companyForm.get('name').value,
-      city: this.companyForm.get('city').value,
-      address: this.companyForm.get('address').value,
-    };
-    this.createCompany(companyParams);
+    if(this.companyForm.valid) {
+      let companyParams = {
+        name: this.companyForm.get('name').value,
+        city: this.companyForm.get('city').value,
+        address: this.companyForm.get('address').value,
+      };
+      this.createCompany(companyParams);
+    }
   }
 
   private createCompany(companyParams) {
@@ -42,7 +43,7 @@ export class CompanyFormComponent implements OnInit {
 
   private initForm() {
     this.companyForm = this._fb.group({
-      name: '',
+      name: ['', Validators.required],
       city: '',
       address: ''
     });

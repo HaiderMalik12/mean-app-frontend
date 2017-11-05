@@ -25,3 +25,6 @@
 .input-field .prefix.active {
   color: #000;
 }
+.has-error{
+  color: red;
+}

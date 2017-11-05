@@ -9,6 +9,7 @@
                type="text"
                class="validate"
                formControlName="name">
+        <p class="has-error" *ngIf="companyForm.controls.name.invalid && companyForm.controls.name.touched">name is required </p>
       </div>
     </div>
 
@@ -30,7 +31,9 @@
         formControlName="address">
       </div>
     </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action" (click)="submitForm()" >Submit
+    <button class="btn waves-effect waves-light"
+            type="submit" name="action" (click)="submitForm()"
+           [disabled] = "companyForm.invalid">Submit
       <i class="material-icons right">send</i>
     </button>
     <a class="waves-effect waves-light btn">Cancel</a>
