@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CompanyService} from "../company.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-company-form',
@@ -10,9 +11,11 @@ import {CompanyService} from "../company.service";
 export class CompanyFormComponent implements OnInit {
 
   companyForm: FormGroup;
+  processing: boolean = false;
 
   constructor(private _fb: FormBuilder,
-              private _companyService: CompanyService) {
+              private _companyService: CompanyService,
+              private _router: Router) {
   }
 
   ngOnInit() {
@@ -31,11 +34,18 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
+  cancel(){
+    this.companyForm.reset();
+    this._router.navigate(['companies']);
+  }
   private createCompany(companyParams) {
+    this.processing = true;
     this._companyService
       .createCompany(companyParams)
       .subscribe(company => {
         console.log(company);
+        this.processing = false;
+        this._router.navigate(['companies']);
       }, err => {
         console.log(err);
       })

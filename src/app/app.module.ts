@@ -9,6 +9,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { NavbarComponent } from './navbar/navbar.component';
 import {CompanyFormComponent} from "./companies/company-form/company-form.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "./shared/shared.module";
 
 const routes: Routes = [{
   path: 'companies',
@@ -29,7 +30,8 @@ const routes: Routes = [{
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
     CompanyService
