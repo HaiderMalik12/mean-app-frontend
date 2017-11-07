@@ -10,10 +10,10 @@ export class CompanyService {
   constructor(private _http: HttpClient) { }
 
   getCompanies():Observable<Company[]>{
-    return this._http.get(`${this.API_URL}/companies`);
+    return this._http.get<Company[]>(`${this.API_URL}/companies`);
   }
   createCompany(companyParams) : Observable<Company>{
-    return this._http.post(`${this.API_URL}/companies`,companyParams);
+    return this._http.post<Company>(`${this.API_URL}/companies`,companyParams);
   }
 
 }
