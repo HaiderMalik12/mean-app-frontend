@@ -17,6 +17,9 @@ const routes: Routes = [{
 },{
   path: 'companies/new',
   component: CompanyFormComponent
+},{
+  path : 'companies/:id',
+  component: CompanyFormComponent
 }];
 
 @NgModule({
