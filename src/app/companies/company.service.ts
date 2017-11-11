@@ -27,4 +27,8 @@ export class CompanyService {
     return this._http.put<Company>(`${this.API_URL}/companies/${id}`, companyParams);
   }
 
+  deleteCompany(id): Observable<any>{
+    return this._http.delete<any>(`${this.API_URL}/companies/${id}`);
+  }
+
 }
