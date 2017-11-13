@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CompanyService} from "../company.service";
 import {Company} from "../company.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-company-list',
@@ -11,7 +12,8 @@ export class CompanyListComponent implements OnInit {
 
   companies: Company[];
 
-  constructor(private _companyService: CompanyService) {
+  constructor(private _companyService: CompanyService,
+              private _toastr: ToastrService) {
 
   }
 
@@ -22,7 +24,7 @@ export class CompanyListComponent implements OnInit {
         this.companies = companies;
         console.log(this.companies);
       }, err => {
-        console.error(err);
+        this.handleError(err);
       })
   }
 
@@ -36,10 +38,17 @@ export class CompanyListComponent implements OnInit {
         .deleteCompany(company._id)
         .subscribe(rsp => {
           console.log(rsp);
+          this._toastr.success('company has deleted','success');
         }, err => {
-          this.companies.splice(index,0, company);
+          this.companies.splice(index, 0, company);
           console.log(err);
         })
     }
+  }
+
+  private handleError(err) {
+    console.log(err);
+    this._toastr.error('could not process request', 'Ops!');
+
   }
 }

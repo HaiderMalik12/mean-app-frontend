@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CompanyService} from "../company.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Company} from "../company.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-company-form',
@@ -19,7 +20,8 @@ export class CompanyFormComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _companyService: CompanyService,
               private _router: Router,
-              private _route: ActivatedRoute) {
+              private _route: ActivatedRoute,
+              private _toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class CompanyFormComponent implements OnInit {
           })
 
         }, err => {
-          console.log(err);
+         this.handleError(err);
         })
     });
 
@@ -71,8 +73,8 @@ export class CompanyFormComponent implements OnInit {
         this.processing = false;
         this._router.navigate(['companies']);
       }, err => {
-        console.log(err);
         this.processing = false;
+        this.handleError(err);
         return;
       })
     }
@@ -90,5 +92,11 @@ export class CompanyFormComponent implements OnInit {
       address: ''
     });
   }
+  private handleError(err) {
+    console.log(err);
+    this._toastr.error('could not process request', 'Ops!');
+
+  }
+
 
 }
